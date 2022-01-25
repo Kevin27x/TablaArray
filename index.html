@@ -5,17 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--HOJA DE ESTILOS-->
     <link rel="stylesheet" href="./assets/css/styles.css">
-    <style>
-        table,th,td {
-            border: 1px solid rgb(37, 37, 37);
-            margin: 10vh auto;
-            padding: 10px 20px;
-            border-collapse: collapse;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-    </style>
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    
 </head>
 <body>
     <select name="listaSelect" id="listaSelect">
@@ -24,15 +18,16 @@
         <option value="sTrauma">Traumatologia</option>
         <option value="sDental">Dental</option>
     </select>
-    <button id = "clean">Limpiar</button>
-    <div class="resultado"></div>
     
-    <table id="tabla">
-        
+    <div id="pacientes"></div>
+    
+    <table id="tabla">  
     </table>
 
+    
+    <!--JAVASCRIPT-->
     <script src="assets/js/index.js"></script>
-
+    <!--CDN JQUERY V3.6.0-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </body>

@@ -131,19 +131,23 @@ let dental = [{
     }
 ];
     
-
+//LISTA SELECTOR
 const listaSelect = document.getElementById("listaSelect");
 listaSelect.addEventListener("change", function(){
+    
     switch(listaSelect.value){
         case "":
+            
             console.log("nada");
         break;
 
         case "sRadio":
+            
             tabla(radiologia);
         break;
 
         case "sTrauma":
+        
             tabla(traumatologia);
         break;
 
@@ -152,112 +156,44 @@ listaSelect.addEventListener("change", function(){
         break;
     };
 });
-
-var texto = "<tr><th>Hora</th><th>Especialista</th><th>Paciente</th><th>Rut</th><th>Previsión</th></tr>";
-
+//FUNCIONES
+//Remueve la fila "n", n es dado por el DOM
+function clean(n){
+    $(document).ready(function(){
+        $(`#${n}`).remove(); 
+    })
+}
+//Crea la tabla según la especialidad dada por el "select"
 function tabla(especialidad){
-    
-    $("#tabla td").remove(); 
-    for (var i = 0; i < especialidad.length; i++) {
-        texto += `<tr>
+    //Crea la cabecera de la tabla
+    var texto = `<tr><th><span id='orden' onclick='ordenFunc()'><i class="fas fa-sort-down"></i></span>Hora</th><th>Especialista</th><th>Paciente</th><th>Rut</th><th>Previsión</th></tr>`;
+    //Itera las posiciones del arreglo dado, y las propiedades de los objetos dentro
+    for (let i = 0; i < especialidad.length; i++) {
+        texto += `<tr id="${i}" class="filasTabla">
         <td>${especialidad[i].hora}</td>
-        <td>${especialidad[i].especialista}</td>
         <td>${especialidad[i].paciente}</td>
         <td>${especialidad[i].rut}</td>
         <td>${especialidad[i].prevision}</td>
+        <td>${especialidad[i].especialista}</td>
+        <td><div class="eliminar" onclick="clean('${i}')"><i class="fas fa-times-circle"></i></td>
         </tr>`;
-        document.getElementById("tabla").innerHTML = texto;
+        //agrega "x" con evento onclick en ultima fila de la tabla, con su correspondiente "i", para eliminar la fila completa "<tr>" con su "id = i"
     }
+    document.getElementById("tabla").innerHTML = texto;
+
+    //Almacenar primer y ultimo paciente, con sus previsiones 
+    let pacienteUno = especialidad[0].paciente;
+    let previsionUno = especialidad[0].prevision;
+    let pacienteFinal = especialidad[especialidad.length - 1].paciente;
+    let previsionFinal = especialidad[especialidad.length - 1].prevision;
+    document.getElementById("pacientes").innerHTML = `<h4>Primera Atención: ${pacienteUno} - ${previsionUno} | Última Atención: ${pacienteFinal} - ${previsionFinal}</h4>`
 }
-/*
-var limpiar = document.getElementById("clean");
-limpiar.addEventListener("click", function(){
-    $("#tabla tr").remove(); 
-})
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-var texto = "<tr><th>Hora</th><th>Especialista</th><th>Paciente</th><th>Rut</th><th>Previsión</th></tr>";
-
-function tabla(){
-
-    document.getElementById("tabla").innerHTML = "";
-    for (var i = 0; i < radiologia.length; i++) {
-        texto += `<tr>
-        <td>${radiologia[i].hora}</td>
-        <td>${radiologia[i].especialista}</td>
-        <td>${radiologia[i].paciente}</td>
-        <td>${radiologia[i].rut}</td>
-        <td>${radiologia[i].prevision}</td>
-        </tr>`;
-        document.getElementById("tabla").innerHTML = texto;
-    }
+//Invierte elementos ".filasTabla" creados en la función "tabla"
+function ordenFunc(){
+    $("tbody").each(function(){
+        var arr = $.makeArray($(".filasTabla",this).detach());
+        arr.reverse();
+          $(this).append(arr);
+      });
+    
 }
-*/
-
-
-
-
-
-/*
-    if (event.target.value = "selectRadio"){
-        document.write("elegiste radio")
-    }
-    else if (event.target.value = "selectTrauma"){
-        document.write("elegiste trauma")
-    }
-    else if (event.target.value = "selectDental"){
-        document.write("elegiste dental")
-    }
-
-});*/
-/*
-for (var i = 0; i < radiologia.length; i++) {
-    texto += `<tr>
-    <td>${radiologia[i].hora}</td>
-    <td>${radiologia[i].especialista}</td>
-    <td>${radiologia[i].paciente}</td>
-    <td>${radiologia[i].rut}</td>
-    <td>${radiologia[i].prevision}</td>
-    </tr>`;
-    document.getElementById("tabla1").innerHTML = texto;
-}
-
-
-for (var i = 0; i < traumatologia.length; i++) {
-    texto += `<tr>
-    <td>${traumatologia[i].hora}</td>
-    <td>${traumatologia[i].especialista}</td>
-    <td>${traumatologia[i].paciente}</td>
-    <td>${traumatologia[i].rut}</td>
-    <td>${traumatologia[i].prevision}</td>
-    </tr>`;
-    document.getElementById("tabla2").innerHTML = texto;
-}
-
-
-
-for (var i = 0; i < dental.length; i++) {
-    texto += `<tr>
-    <td>${dental[i].hora}</td>
-    <td>${dental[i].especialista}</td>
-    <td>${dental[i].paciente}</td>
-    <td>${dental[i].rut}</td>
-    <td>${dental[i].prevision}</td>
-    </tr>`;
-    document.getElementById("tabla3").innerHTML = texto;
-}
-*/
-
